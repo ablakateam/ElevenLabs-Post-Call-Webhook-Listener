@@ -1,46 +1,33 @@
-ElevenLabs Post-Call Webhook Listener
+# ElevenLabs Post-Call Webhook Listener
 
-This repository contains a Node.js/Express application that listens for ElevenLabs post-call webhooks, verifies HMAC signatures, and sends call summaries (with phone number and transcript) via SendGrid.
+A simple Node.js/Express service that receives post-call webhooks from ElevenLabs, verifies HMAC signatures, and emails a call summary (including phone number and transcript) via SendGrid.
 
-Repository Structure
+---
 
-.
-├── index.js             # Main webhook listener code
-├── .env.example         # Environment variables template
-├── package.json         # NPM dependencies and scripts
-├── .gitignore           # Files to ignore in Git
-└── README.md            # This manual
+## 📦 Features
 
-Prerequisites
+- **HMAC-SHA256 verification** of incoming webhook payloads  
+- Supports `call.finished` and `post_call_transcription` events  
+- Extracts caller phone number and full transcript  
+- Sends notification email via SendGrid  
+- Easy deployment on any Linux server with PM2 & Nginx  
 
-Node.js v16+ and npm
+---
 
-A SendGrid API key
+## 🛠️ Prerequisites
 
-An ElevenLabs webhook signing secret
+- **Node.js** v16+ & **npm**  
+- **SendGrid** API key  
+- **ElevenLabs** webhook signing secret  
+- A **public domain** (e.g. `api.eboxlab.com`) pointing at your server  
+- **Nginx** (for reverse-proxy + SSL)  
+- **PM2** (to keep the service running)  
 
-A server (e.g., Vultr) with a public domain (e.g., api.eboxlab.com)
+---
 
-Nginx (for reverse proxy and SSL)
+## 🚀 Installation
 
-PM2 (to keep the app running)
-
-Installation
-
-Clone the repository
-
-git clone https://github.com/your-org/elevenlabs-webhook.git
-cd elevenlabs-webhook
-
-Install dependencies
-
-npm install
-
-Create your environment file
-
-npm install -g pm2
-pm2 start index.js --name elevenlabs-webhook
-pm2 save
-pm2 startup    # follow instructions
-
-
+1. **Clone the repo**  
+   ```bash
+   git clone https://github.com/your-org/elevenlabs-webhook.git
+   cd elevenlabs-webhook
